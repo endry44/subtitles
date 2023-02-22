@@ -1,0 +1,49 @@
+// Define the video file and create a video element
+const videoFile = 'example.mp4';
+const video = document.createElement('video');
+video.src = videoFile;
+
+// Define the subtitles data
+const subtitles = [
+  {
+    start: 0,
+    end: 5,
+    text: 'Welcome to this video!'
+  },
+  {
+    start: 5,
+    end: 10,
+    text: 'In this video, we will learn how to create subtitles using JavaScript.'
+  },
+  {
+    start: 10,
+    end: 15,
+    text: 'First, let\'s create a function that will display the subtitles on the video.'
+  },
+  {
+    start: 15,
+    end: 20,
+    text: 'We can use the timeupdate event to update the subtitles based on the current time of the video.'
+  }
+  // add more subtitle data as needed
+];
+
+// Create a function to display the subtitles on the video
+function displaySubtitles() {
+  const currentSubtitle = subtitles.find(subtitle => {
+    return video.currentTime >= subtitle.start && video.currentTime <= subtitle.end;
+  });
+
+  if (currentSubtitle) {
+    document.getElementById('subtitle').textContent = currentSubtitle.text;
+  } else {
+    document.getElementById('subtitle').textContent = '';
+  }
+}
+
+// Add an event listener to update the subtitles when the video is playing
+video.addEventListener('timeupdate', displaySubtitles);
+
+// Add the video and subtitle elements to the DOM
+document.body.appendChild(video);
+document.body.appendChild(document.createElement('div')).id = 'subtitle';
